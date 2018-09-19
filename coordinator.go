@@ -69,7 +69,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, node string) str
 	return string(returned)
 }
 
-func (c Crypt0Client) CreateAPP(endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
+func (c Crypt0Client) Coord_CreateAPP(endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new App\n")
 
 	nodeID := c.GetRemoteNodeCredentials(endpoint)
