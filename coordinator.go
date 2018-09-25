@@ -14,10 +14,10 @@ import (
 	"time"
 )
 
-func (d Crypt0Client) Coord_RegisterMasterkey(public_key []byte, endpointurl string) {
+func (d Crypt0Client) Coord_RegisterMasterkey(public_key []byte) {
 	pkey := crypto.Base64_encode(public_key)
 
-	returned := d._get("http://" + endpointurl + "/api/v1/coord/register_masterkey?url=" + endpointurl + "&key=" + url.QueryEscape(pkey))
+	returned := d._get("http://" + d.Endpoint + "/api/v1/coord/register_masterkey?url=" + d.Endpoint + "&key=" + url.QueryEscape(pkey))
 
 	myerror := new(apihandlers.ErrorType)
 	json.Unmarshal(returned, myerror)
