@@ -27,12 +27,12 @@ func (d Crypt0Client) Coord_RegisterMasterkey(public_key []byte) {
 	}
 }
 
-func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, node string) string {
+func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, coord_endpoint, node_endpoint string) string {
 	//ARRAY OF URLS
 	data := struct {
 		Urls []string
 	}{
-		[]string{node},
+		[]string{node_endpoint},
 	}
 
 	jsonstr, err := json.Marshal(data)
@@ -57,7 +57,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, node string) str
 	jsonstr, err = json.Marshal(tosend)
 	apihandlers.PanicIfNotNil(err)
 
-	returned := d._post("http://"+node+"/api/v1/coord/register_nodes", jsonstr)
+	returned := d._post("http://"+coord_endpoint+"/api/v1/coord/register_nodes", jsonstr)
 
 	myerror := new(apihandlers.ErrorType)
 	json.Unmarshal(returned, myerror)
@@ -69,10 +69,10 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, node string) str
 	return string(returned)
 }
 
-func (c Crypt0Client) Coord_CreateAPP(endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
+func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new App\n")
 
-	nodeID := c.Node_GetCredentials(endpoint)
+	nodeID := c.Node_GetCredentials(coord_endpoint)
 
 	appPublicKey, appPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
 	apihandlers.PanicIfNotNil(err)
@@ -110,7 +110,7 @@ func (c Crypt0Client) Coord_CreateAPP(endpoint string, coord_publ, coord_priv []
 	jsonstr, err = json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	returned := c._post("http://"+endpoint+"/api/v1/coord/add_app", jsonstr)
+	returned := c._post("http://"+coord_endpoint+"/api/v1/coord/add_app", jsonstr)
 	apihandlers.PanicIfNotNil(err)
 
 	myerror := new(apihandlers.ErrorType)
