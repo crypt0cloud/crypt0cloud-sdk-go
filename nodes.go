@@ -12,9 +12,9 @@ import (
 	"time"
 )
 
-func (c Crypt0Client) Node_GetCredentials(endpoint string) *model.NodeIdentification {
+func (c Crypt0Client) Node_GetCredentials() *model.NodeIdentification {
 	//TODO: CHANGE URL WHEN BLOCK CHANGES
-	response := c._get("http://" + endpoint + "/api/v1/node_id")
+	response := c._get("http://" + c.Endpoint + "/api/v1/node_id")
 
 	nodeI := new(model.NodeIdentification)
 	err := json.Unmarshal(response, nodeI)
@@ -25,15 +25,15 @@ func (c Crypt0Client) Node_GetCredentials(endpoint string) *model.NodeIdentifica
 
 func (c Crypt0Client) Node_CreateUser(endpoint string) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new User\n")
-	nodeID := c.Node_GetCredentials(endpoint)
+	nodeID := c.Node_GetCredentials()
 
-	appPublicKey, appPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
+	UserPublicKey, UserPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
 	apihandlers.PanicIfNotNil(err)
 
 	transaction := new(model.Transaction)
 	transaction.SignerKinds = []string{"NewUser"}
 	transaction.SignKind = "NewUser"
-	transaction.AppID = base64.StdEncoding.EncodeToString(appPublicKey)
+	transaction.AppID = base64.StdEncoding.EncodeToString(UserPublicKey)
 	transaction.Parent = ""
 	transaction.Callback = "http://localhost:8081"
 	transaction.Payload = randomdata.Email()
@@ -42,9 +42,9 @@ func (c Crypt0Client) Node_CreateUser(endpoint string) (*model.Transaction, []by
 	transaction.ToNode = *nodeID
 	transaction.Creation = time.Now().UnixNano()
 
-	response := c.PostSingleTransaction(endpoint, transaction, appPublicKey, appPrivateKey)
+	response := c.PostSingleTransaction(endpoint, transaction, UserPublicKey, UserPrivateKey)
 
 	err = json.Unmarshal(response, transaction)
 
-	return transaction, appPublicKey, appPrivateKey
+	return transaction, UserPublicKey, UserPrivateKey
 }
