@@ -5,9 +5,9 @@ import (
 	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
-func node_get_credentials(NodeEndpoint string) *model.NodeIdentification {
+func node_create_user(NodeEndpoint string) (*model.Transaction, []byte, []byte) {
 
 	client := cc.GetClient(NodeEndpoint)
-	return client.Node_GetCredentials()
+	return client.Node_CreateUser()
 
 }

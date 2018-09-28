@@ -23,7 +23,7 @@ func (c Crypt0Client) Node_GetCredentials() *model.NodeIdentification {
 	return nodeI
 }
 
-func (c Crypt0Client) Node_CreateUser(endpoint string) (*model.Transaction, []byte, []byte) {
+func (c Crypt0Client) Node_CreateUser() (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new User\n")
 	nodeID := c.Node_GetCredentials()
 
@@ -42,7 +42,7 @@ func (c Crypt0Client) Node_CreateUser(endpoint string) (*model.Transaction, []by
 	transaction.ToNode = *nodeID
 	transaction.Creation = time.Now().UnixNano()
 
-	response := c.PostSingleTransaction(endpoint, transaction, UserPublicKey, UserPrivateKey)
+	response := c.PostSingleTransaction(c.Endpoint, transaction, UserPublicKey, UserPrivateKey)
 
 	err = json.Unmarshal(response, transaction)
 
