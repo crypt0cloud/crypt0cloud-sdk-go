@@ -9,7 +9,7 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-func (c Crypt0Client) PostSingleTransaction(endpoint string, transaction *model.Transaction, publicKey, privateKey []byte) []byte {
+func (c Crypt0Client) PostSingleTransaction(transaction *model.Transaction, publicKey, privateKey []byte) []byte {
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
@@ -28,5 +28,5 @@ func (c Crypt0Client) PostSingleTransaction(endpoint string, transaction *model.
 	jsonstr, err = json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	return c._post("http://"+endpoint+"/api/v1/post_single_transaction", jsonstr)
+	return c._post("http://"+c.Endpoint+"/api/v1/post_single_transaction", jsonstr)
 }
