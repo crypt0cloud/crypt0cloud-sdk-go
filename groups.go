@@ -59,4 +59,6 @@ func signTransaction(transaction *model.Transaction, publicKey, privateKey []byt
 	transaction.Sign = base64.StdEncoding.EncodeToString(sign)
 
 	transaction.Signer = base64.StdEncoding.EncodeToString(publicKey)
+
+	return transaction
 }

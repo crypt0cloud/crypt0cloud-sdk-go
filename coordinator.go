@@ -93,19 +93,7 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 
 	transaction.Creation = time.Now().UnixNano()
 
-	jsonstr, err := json.Marshal(transaction)
-	apihandlers.PanicIfNotNil(err)
-
-	transaction.Content = base64.StdEncoding.EncodeToString(jsonstr)
-
-	sha_256.Write(jsonstr)
-	contentsha := sha_256.Sum(nil)
-	transaction.Hash = base64.StdEncoding.EncodeToString(contentsha)
-
-	sign := ed25519.Sign(coord_priv, contentsha)
-	transaction.Sign = base64.StdEncoding.EncodeToString(sign)
-
-	transaction.Signer = base64.StdEncoding.EncodeToString(coord_publ)
+	transaction = signTransaction(transaction, coord_publ, coord_priv)
 
 	jsonstr, err = json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
