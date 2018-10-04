@@ -42,7 +42,7 @@ func (c Crypt0Client) Node_CreateUser() (*model.Transaction, []byte, []byte) {
 	transaction.ToNode = *nodeID
 	transaction.Creation = time.Now().UnixNano()
 
-	response := c.PostSingleTransaction(c.Endpoint, transaction, UserPublicKey, UserPrivateKey)
+	response := c.PostSingleTransaction(transaction, UserPublicKey, UserPrivateKey)
 
 	err = json.Unmarshal(response, transaction)
 

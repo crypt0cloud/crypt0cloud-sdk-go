@@ -72,7 +72,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, coord_endpoint, 
 func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new App\n")
 
-	nodeID := c.Node_GetCredentials(coord_endpoint)
+	nodeID := c.Node_GetCredentials()
 
 	appPublicKey, appPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
 	apihandlers.PanicIfNotNil(err)
