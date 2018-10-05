@@ -6,9 +6,9 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-func sign_signing_request(CoorEndpoint string, transaction *model.Transaction, UserPublicKey ed25519.PublicKey, UserPrivateKey ed25519.PrivateKey) []byte {
+func sign_signing_request(Endpoint string, transaction *model.Transaction, UserPublicKey ed25519.PublicKey, UserPrivateKey ed25519.PrivateKey) []byte {
 
-	client := cc.GetClient(CoorEndpoint)
+	client := cc.GetClient(Endpoint)
 	return client.SigningRequestSign(transaction, UserPublicKey, UserPrivateKey)
 
 }

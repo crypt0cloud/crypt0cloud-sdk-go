@@ -6,9 +6,9 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-func create_single_transaction(CoorEndpoint string, transaction *model.Transaction, UserPublicKey ed25519.PublicKey, UserPrivateKey ed25519.PrivateKey) []byte {
+func create_single_transaction(Endpoint string, transaction *model.Transaction, UserPublicKey ed25519.PublicKey, UserPrivateKey ed25519.PrivateKey) []byte {
 
-	client := cc.GetClient(CoorEndpoint)
+	client := cc.GetClient(Endpoint)
 	return client.PostSingleTransaction(transaction, UserPublicKey, UserPrivateKey)
 
 }

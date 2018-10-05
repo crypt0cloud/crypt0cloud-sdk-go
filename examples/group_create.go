@@ -6,9 +6,9 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-func create_group(CoorEndpoint string, transaction *model.Transaction, UserPublicKey ed25519.PublicKey, UserPrivateKey ed25519.PrivateKey) []byte {
+func create_group(Endpoint string, transaction *model.Transaction, AppPublicKey ed25519.PublicKey, AppPrivateKey ed25519.PrivateKey) []byte {
 
-	client := cc.GetClient(CoorEndpoint)
-	return client.GroupCreate(transaction, UserPublicKey, UserPrivateKey)
+	client := cc.GetClient(Endpoint)
+	return client.GroupCreate(transaction, AppPublicKey, AppPrivateKey)
 
 }

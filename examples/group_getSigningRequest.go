@@ -5,9 +5,9 @@ import (
 	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
-func get_signing_request(CoorEndpoint string, transaction_id int64) *model.Transaction {
+func get_signing_request(Endpoint string, transaction_id int64) *model.Transaction {
 
-	client := cc.GetClient(CoorEndpoint)
+	client := cc.GetClient(Endpoint)
 	return client.SigningRequestGet(transaction_id)
 
 }

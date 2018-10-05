@@ -77,8 +77,6 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	appPublicKey, appPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
 	apihandlers.PanicIfNotNil(err)
 
-	sha_256 := sha256.New()
-
 	transaction := new(model.Transaction)
 	transaction.SignerKinds = []string{"NewApp"}
 	transaction.SignKind = "NewApp"
@@ -86,7 +84,6 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	transaction.Parent = ""
 	transaction.Callback = "http://localhost:8081"
 	transaction.Payload = "Test app1"
-	transaction.OriginatorURl = ""
 
 	transaction.FromNode = *nodeID
 	transaction.ToNode = *nodeID
@@ -95,7 +92,7 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 
 	transaction = signTransaction(transaction, coord_publ, coord_priv)
 
-	jsonstr, err = json.Marshal(transaction)
+	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
 	returned := c._post("http://"+coord_endpoint+"/api/v1/coord/add_app", jsonstr)
