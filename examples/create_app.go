@@ -6,10 +6,10 @@ import (
 	"golang.org/x/crypto/ed25519"
 )
 
-func create_app(CoorEndpoint string, MKPublicKey ed25519.PublicKey, MKPrivateKey ed25519.PrivateKey) (*model.Transaction, []byte, []byte) {
+func create_app(appname, CoorEndpoint, callback string, MKPublicKey ed25519.PublicKey, MKPrivateKey ed25519.PrivateKey) (*model.Transaction, []byte, []byte) {
 
 	client := cc.GetClient(CoorEndpoint)
-	NewAppTransaction, AppPublicKey, AppPrivateKey := client.Coord_CreateAPP(CoorEndpoint, MKPublicKey, MKPrivateKey)
+	NewAppTransaction, AppPublicKey, AppPrivateKey := client.Coord_CreateAPP(CoorEndpoint, MKPublicKey, MKPrivateKey, callback, appname)
 
 	return NewAppTransaction, AppPublicKey, AppPrivateKey
 

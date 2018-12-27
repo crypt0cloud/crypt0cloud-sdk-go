@@ -55,6 +55,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, coord_endpoint, 
 	}
 
 	jsonstr, err = json.Marshal(tosend)
+	fmt.Printf("%s\n", string(jsonstr))
 	apihandlers.PanicIfNotNil(err)
 
 	returned := d._post("http://"+coord_endpoint+"/api/v1/coord/register_nodes", jsonstr)
@@ -69,7 +70,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, coord_endpoint, 
 	return string(returned)
 }
 
-func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_priv []byte) (*model.Transaction, []byte, []byte) {
+func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_priv []byte, callback, appname string) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new App\n")
 
 	nodeID := c.Node_GetCredentials()
@@ -82,8 +83,8 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	transaction.SignKind = "NewApp"
 	transaction.AppID = base64.StdEncoding.EncodeToString(appPublicKey)
 	transaction.Parent = ""
-	transaction.Callback = "http://localhost:8081"
-	transaction.Payload = "Test app1"
+	transaction.Callback = callback
+	transaction.Payload = appname
 
 	transaction.FromNode = *nodeID
 	transaction.ToNode = *nodeID

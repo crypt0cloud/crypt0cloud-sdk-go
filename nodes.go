@@ -12,6 +12,12 @@ import (
 	"time"
 )
 
+func (c Crypt0Client) Node_SetUp() bool {
+	response := c._get("http://" + c.Endpoint + "/api/setup/configure_endpoint?endpoint=" + c.Endpoint)
+
+	return string(response) == "OK"
+}
+
 func (c Crypt0Client) Node_GetCredentials() *model.NodeIdentification {
 	//TODO: CHANGE URL WHEN BLOCK CHANGES
 	response := c._get("http://" + c.Endpoint + "/api/v1/node_id")
