@@ -2,7 +2,9 @@ package crypt0cloud_sdk_go
 
 import (
 	"bytes"
+	"context"
 	"github.com/onlyangel/apihandlers"
+	"google.golang.org/appengine/urlfetch"
 	"io/ioutil"
 	"net/http"
 )
@@ -12,7 +14,15 @@ type Crypt0Client struct {
 	Client   *http.Client
 }
 
-func GetClient(endpoint_url string) *Crypt0Client {
+func GetClient(endpoint_url string, ctx context.Context) *Crypt0Client {
+
+	if ctx != nil {
+		return &Crypt0Client{
+			Endpoint: endpoint_url,
+			Client:   urlfetch.Client(ctx),
+		}
+	}
+
 	return &Crypt0Client{
 		Endpoint: endpoint_url,
 		Client:   &http.Client{},
@@ -37,8 +47,7 @@ func (c Crypt0Client) _post(url string, data []byte) []byte {
 	apihandlers.PanicIfNotNil(err)
 
 	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.Client.Do(req)
 	apihandlers.PanicIfNotNil(err)
 
 	body, _ := ioutil.ReadAll(resp.Body)

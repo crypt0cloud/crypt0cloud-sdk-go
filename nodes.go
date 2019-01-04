@@ -4,11 +4,9 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/Pallinder/go-randomdata"
 	"github.com/crypt0cloud/core/model"
 	"github.com/onlyangel/apihandlers"
-	"golang.org/x/crypto/ed25519"
-	"math/rand"
+
 	"time"
 )
 
@@ -29,12 +27,9 @@ func (c Crypt0Client) Node_GetCredentials() *model.NodeIdentification {
 	return nodeI
 }
 
-func (c Crypt0Client) Node_CreateUser() (*model.Transaction, []byte, []byte) {
+func (c Crypt0Client) Node_CreateUser(UserPublicKey, UserPrivateKey []byte) (*model.Transaction, []byte, []byte) {
 	fmt.Printf("Creating new User\n")
 	nodeID := c.Node_GetCredentials()
-
-	UserPublicKey, UserPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
-	apihandlers.PanicIfNotNil(err)
 
 	transaction := new(model.Transaction)
 	transaction.SignerKinds = []string{"NewUser"}
@@ -42,7 +37,7 @@ func (c Crypt0Client) Node_CreateUser() (*model.Transaction, []byte, []byte) {
 	transaction.AppID = base64.StdEncoding.EncodeToString(UserPublicKey)
 	transaction.Parent = ""
 	transaction.Callback = "http://localhost:8081"
-	transaction.Payload = randomdata.Email()
+	transaction.Payload = transaction.AppID
 
 	transaction.FromNode = *nodeID
 	transaction.ToNode = *nodeID
@@ -50,7 +45,7 @@ func (c Crypt0Client) Node_CreateUser() (*model.Transaction, []byte, []byte) {
 
 	response := c.PostSingleTransaction(transaction, UserPublicKey, UserPrivateKey)
 
-	err = json.Unmarshal(response, transaction)
+	json.Unmarshal(response, transaction)
 
 	return transaction, UserPublicKey, UserPrivateKey
 }
