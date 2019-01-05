@@ -1,0 +1,19 @@
+package crypt0cloud_sdk_go
+
+import (
+	"encoding/json"
+	"github.com/crypt0cloud/core/model"
+	"github.com/onlyangel/apihandlers"
+)
+
+func (d Crypt0Client) Block_getLasts() []model.Block {
+
+	returned := d._get("https://" + d.Endpoint + "/api/v1/block/get_lasts")
+
+	var arr []model.Block
+
+	err := json.Unmarshal(returned, &arr)
+	apihandlers.PanicIfNotNil(err)
+
+	return arr
+}
