@@ -17,7 +17,7 @@ import (
 func (d Crypt0Client) Coord_RegisterMasterkey(public_key []byte) {
 	pkey := crypto.Base64_encode(public_key)
 
-	returned := d._get("http://" + d.Endpoint + "/api/v1/coord/register_masterkey?url=" + d.Endpoint + "&key=" + url.QueryEscape(pkey))
+	returned := d._get("https://" + d.Endpoint + "/api/v1/coord/register_masterkey?url=" + d.Endpoint + "&key=" + url.QueryEscape(pkey))
 
 	myerror := new(apihandlers.ErrorType)
 	json.Unmarshal(returned, myerror)
@@ -58,7 +58,7 @@ func (d Crypt0Client) Coord_AddNode(coordinator_private []byte, coord_endpoint, 
 	fmt.Printf("%s\n", string(jsonstr))
 	apihandlers.PanicIfNotNil(err)
 
-	returned := d._post("http://"+coord_endpoint+"/api/v1/coord/register_nodes", jsonstr)
+	returned := d._post("https://"+coord_endpoint+"/api/v1/coord/register_nodes", jsonstr)
 
 	myerror := new(apihandlers.ErrorType)
 	json.Unmarshal(returned, myerror)
@@ -74,6 +74,7 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	fmt.Printf("Creating new App\n")
 
 	nodeID := c.Node_GetCredentials()
+	lastNodes := c.Block_getLasts()
 
 	appPublicKey, appPrivateKey, err := ed25519.GenerateKey(rand.New(rand.NewSource(time.Now().UnixNano())))
 	apihandlers.PanicIfNotNil(err)
@@ -85,6 +86,7 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	transaction.Parent = ""
 	transaction.Callback = callback
 	transaction.Payload = appname
+	transaction.BlockSign = lastNodes[0].Sign
 
 	transaction.FromNode = *nodeID
 	transaction.ToNode = *nodeID
@@ -96,7 +98,7 @@ func (c Crypt0Client) Coord_CreateAPP(coord_endpoint string, coord_publ, coord_p
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	returned := c._post("http://"+coord_endpoint+"/api/v1/coord/add_app", jsonstr)
+	returned := c._post("https://"+coord_endpoint+"/api/v1/coord/add_app", jsonstr)
 	apihandlers.PanicIfNotNil(err)
 
 	myerror := new(apihandlers.ErrorType)

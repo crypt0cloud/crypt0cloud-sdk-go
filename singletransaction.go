@@ -12,5 +12,5 @@ func (c Crypt0Client) PostSingleTransaction(transaction *model.Transaction, publ
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	return c._post("http://"+c.Endpoint+"/api/v1/post_single_transaction", jsonstr)
+	return c._post("https://"+c.Endpoint+"/api/v1/post_single_transaction", jsonstr)
 }

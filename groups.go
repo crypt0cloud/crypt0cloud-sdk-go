@@ -15,18 +15,18 @@ func (c Crypt0Client) GroupCreate(transaction *model.Transaction, publicKey, pri
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	return c._post("http://"+c.Endpoint+"/api/v1/create_group", jsonstr)
+	return c._post("https://"+c.Endpoint+"/api/v1/create_group", jsonstr)
 }
 
 func (c Crypt0Client) SigningRequestCreate(transaction *model.Transaction) []byte {
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	return c._post("http://"+c.Endpoint+"/api/v1/create_signingRequest", jsonstr)
+	return c._post("https://"+c.Endpoint+"/api/v1/create_signingRequest", jsonstr)
 }
 
 func (c Crypt0Client) SigningRequestGet(transactionid int64) *model.Transaction {
-	responses := c._get("http://" + c.Endpoint + "/api/v1/get_signingRequest?id=" + string(transactionid))
+	responses := c._get("https://" + c.Endpoint + "/api/v1/get_signingRequest?id=" + string(transactionid))
 	transaction := new(model.Transaction)
 
 	err := json.Unmarshal(responses, transaction)
@@ -41,7 +41,7 @@ func (c Crypt0Client) SigningRequestSign(transaction *model.Transaction, publicK
 	jsonstr, err := json.Marshal(transaction)
 	apihandlers.PanicIfNotNil(err)
 
-	return c._post("http://"+c.Endpoint+"/api/v1/sign_signingRequest", jsonstr)
+	return c._post("https://"+c.Endpoint+"/api/v1/sign_signingRequest", jsonstr)
 }
 
 func signTransaction(transaction *model.Transaction, publicKey, privateKey []byte) *model.Transaction {

@@ -11,14 +11,14 @@ import (
 )
 
 func (c Crypt0Client) Node_SetUp() bool {
-	response := c._get("http://" + c.Endpoint + "/api/setup/configure_endpoint?endpoint=" + c.Endpoint)
+	response := c._get("https://" + c.Endpoint + "/api/setup/configure_endpoint?endpoint=" + c.Endpoint)
 
 	return string(response) == "OK"
 }
 
 func (c Crypt0Client) Node_GetCredentials() *model.NodeIdentification {
 	//TODO: CHANGE URL WHEN BLOCK CHANGES
-	response := c._get("http://" + c.Endpoint + "/api/v1/node_id")
+	response := c._get("https://" + c.Endpoint + "/api/v1/node_id")
 
 	nodeI := new(model.NodeIdentification)
 	err := json.Unmarshal(response, nodeI)
@@ -36,7 +36,7 @@ func (c Crypt0Client) Node_CreateUser(UserPublicKey, UserPrivateKey []byte) (*mo
 	transaction.SignKind = "NewUser"
 	transaction.AppID = base64.StdEncoding.EncodeToString(UserPublicKey)
 	transaction.Parent = ""
-	transaction.Callback = "http://localhost:8081"
+	transaction.Callback = "https://localhost:8081"
 	transaction.Payload = transaction.AppID
 
 	transaction.FromNode = *nodeID
