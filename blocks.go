@@ -8,7 +8,7 @@ import (
 
 func (d Crypt0Client) Block_getLasts() []model.Block {
 
-	returned := d._get("https://" + d.Endpoint + "/api/v1/block/get_lasts")
+	returned := d._get("http://" + d.Endpoint + "/api/v1/block/get_lasts")
 
 	var arr []model.Block
 
