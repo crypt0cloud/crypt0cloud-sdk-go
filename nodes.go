@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/crypt0cloud/core/model"
 	"github.com/onlyangel/apihandlers"
+	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
 
 	"time"
 )

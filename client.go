@@ -2,7 +2,7 @@ package crypt0cloud_sdk_go
 
 import (
 	"bytes"
-	"context"
+	"golang.org/x/net/context"
 	"github.com/onlyangel/apihandlers"
 	"google.golang.org/appengine/urlfetch"
 	"io/ioutil"

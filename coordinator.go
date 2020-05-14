@@ -5,12 +5,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/crypt0cloud/core/crypto"
-	"github.com/crypt0cloud/core/model"
 	"github.com/onlyangel/apihandlers"
 	"golang.org/x/crypto/ed25519"
 	"math/rand"
 	"net/url"
+	"source.cloud.google.com/crypt0cloud-app/crypt0cloud/core/crypto"
+	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
 	"time"
 )
 

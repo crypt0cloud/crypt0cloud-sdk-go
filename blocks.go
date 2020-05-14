@@ -2,8 +2,8 @@ package crypt0cloud_sdk_go
 
 import (
 	"encoding/json"
-	"github.com/crypt0cloud/core/model"
 	"github.com/onlyangel/apihandlers"
+	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
 )
 
 func (d Crypt0Client) Block_getLasts() []model.Block {
