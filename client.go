@@ -2,11 +2,12 @@ package crypt0cloud_sdk_go
 
 import (
 	"bytes"
-	"golang.org/x/net/context"
-	"github.com/onlyangel/apihandlers"
-	"google.golang.org/appengine/urlfetch"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/onlyangel/apihandlers"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/urlfetch"
 )
 
 type Crypt0Client struct {

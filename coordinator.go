@@ -5,13 +5,15 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/onlyangel/apihandlers"
-	"golang.org/x/crypto/ed25519"
 	"math/rand"
 	"net/url"
+	"time"
+
+	"github.com/onlyangel/apihandlers"
+	"golang.org/x/crypto/ed25519"
+
 	"source.cloud.google.com/crypt0cloud-app/crypt0cloud/core/crypto"
 	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
-	"time"
 )
 
 func (d Crypt0Client) Coord_RegisterMasterkey(public_key []byte) {

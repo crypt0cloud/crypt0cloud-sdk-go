@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/crypt0cloud/core/crypto"
-	"github.com/crypt0cloud/core/model"
 	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
+	model "github.com/crypt0cloud/model_go"
 	"github.com/go-errors/errors"
 	"golang.org/x/crypto/ed25519"
 	"log"

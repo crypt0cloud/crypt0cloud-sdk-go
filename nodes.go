@@ -4,10 +4,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/onlyangel/apihandlers"
-	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
-
 	"time"
+
+	"github.com/onlyangel/apihandlers"
+
+	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
 )
 
 func (c Crypt0Client) Node_SetUp() bool {
