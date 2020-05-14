@@ -5,7 +5,7 @@ import (
 
 	"github.com/onlyangel/apihandlers"
 
-	model "source.cloud.google.com/crypt0cloud-app/crypt0cloud/model_go"
+	model "github.com/crypt0cloud/model_go"
 )
 
 func (d Crypt0Client) Block_getLasts() []model.Block {
