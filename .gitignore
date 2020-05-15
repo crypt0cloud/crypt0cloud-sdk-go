@@ -12,3 +12,5 @@
 *.out
 
 examples/add_node
+
+main.go

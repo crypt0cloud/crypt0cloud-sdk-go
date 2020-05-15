@@ -2,19 +2,21 @@ package main
 
 import (
 	"fmt"
-	"github.com/crypt0cloud/core/crypto"
-	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
-	model "github.com/crypt0cloud/model_go"
-	"github.com/go-errors/errors"
-	"golang.org/x/crypto/ed25519"
 	"log"
 	"math/rand"
 	"runtime"
 	"time"
+
+	"github.com/go-errors/errors"
+	"golang.org/x/crypto/ed25519"
+
+	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
+	crypto "github.com/crypt0cloud/crypto_go"
+	model "github.com/crypt0cloud/model_go"
 )
 
-func main(){
-	for n:= 0; n<10;n++{
+func main() {
+	for n := 0; n < 10; n++ {
 		main2()
 	}
 }
@@ -29,7 +31,7 @@ func main2() {
 		}
 	}()
 
-	client := cc.GetClient("localhost:8080",nil)
+	client := cc.GetClient("localhost:8080", nil)
 	blocks := client.Block_getLasts()
 	node := client.Node_GetCredentials()
 
@@ -43,11 +45,11 @@ func main2() {
 	t.Signer = t.AppID
 	t.Payload = t.AppID
 	t.SignKind = "NewUser"
-	t.SignerKinds = [] string { t.SignKind }
+	t.SignerKinds = []string{t.SignKind}
 	t.FromNode = *node
-	t.ToNode = *node;
+	t.ToNode = *node
 
-	t.Callback = "demo";
+	t.Callback = "demo"
 	t.Creation = time.Now().UnixNano()
 	t.BlockSign = blocks[0].Sign
 
@@ -59,12 +61,12 @@ func main2() {
 
 	rand.Seed(time.Now().UnixNano())
 
-	for n := 0 ; n < times; n++ {
+	for n := 0; n < times; n++ {
 		go func(c chan string) {
 			tr := new(model.Transaction)
 			tr.AppID = appkey
 			tr.Signer = crypto.Base64_encode(UserPublicKey)
-			tr.Payload = fmt.Sprintf("payload %d",rand.Uint64())
+			tr.Payload = fmt.Sprintf("payload %d", rand.Uint64())
 			tr.SignKind = ""
 			tr.SignerKinds = []string{}
 
@@ -86,14 +88,12 @@ func main2() {
 		select {
 		case <-c:
 			n++
-			fmt.Printf("tick: %d\n",n)
-			if n == times{
+			fmt.Printf("tick: %d\n", n)
+			if n == times {
 				return
 			}
 
 		}
 	}
-
-
 
 }

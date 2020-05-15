@@ -12,7 +12,7 @@ import (
 	"github.com/onlyangel/apihandlers"
 	"golang.org/x/crypto/ed25519"
 
-	"github.com/crypt0cloud/core/crypto"
+	crypto "github.com/crypt0cloud/crypto_go"
 	model "github.com/crypt0cloud/model_go"
 )
 
