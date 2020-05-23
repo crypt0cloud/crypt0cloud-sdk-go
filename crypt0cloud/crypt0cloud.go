@@ -7,9 +7,10 @@ import (
 
 	"golang.org/x/crypto/ed25519"
 
-	"github.com/crypt0cloud/crypt0cloud-sdk-go"
 	crypto "github.com/crypt0cloud/crypto_go"
 	model "github.com/crypt0cloud/model_go"
+
+	"github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
 type Crypt0Cloud struct {

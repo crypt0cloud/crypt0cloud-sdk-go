@@ -1,10 +1,11 @@
 package main
 
 import (
-	"golang.org/x/crypto/ed25519"
 	"log"
 	"math/rand"
 	"time"
+
+	"golang.org/x/crypto/ed25519"
 )
 
 func get_key_pair() (publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) {

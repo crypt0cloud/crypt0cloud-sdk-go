@@ -1,8 +1,9 @@
 package main
 
 import (
-	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 	"golang.org/x/crypto/ed25519"
+
+	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
 func add_node(CoorEndpoint, NodeEndpoint string, MKPrivateKey ed25519.PrivateKey) {

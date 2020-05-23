@@ -1,8 +1,9 @@
 package main
 
 import (
-	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 	model "github.com/crypt0cloud/model_go"
+
+	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
 func node_create_user(NodeEndpoint string) (*model.Transaction, []byte, []byte) {

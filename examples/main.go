@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"golang.org/x/crypto/ed25519"
 	"os"
+
+	"golang.org/x/crypto/ed25519"
 )
 
 var endpoint1 string
@@ -15,7 +16,7 @@ var coordinator_endpoint string
 var MKPublicKey ed25519.PublicKey
 var MKPrivateKey ed25519.PrivateKey
 
-func main(){
+func main() {
 	flag.StringVar(&endpoint1, "endpoint 1", "localhost:8081", "url of the endpoint 1")
 	flag.StringVar(&endpoint2, "endpoint 2", "localhost:8080", "url of the endpoint 2")
 	flag.StringVar(&coordinator_endpoint, "coordinator", "localhost:8080", "url of the coordinator endpoint")
@@ -31,6 +32,3 @@ func main(){
 
 	coordinator_init(coordinator_endpoint, MKPublicKey)
 }
-
-
-

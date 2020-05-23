@@ -2,6 +2,7 @@ package main
 
 import (
 	"golang.org/x/crypto/ed25519"
+
 	cc "github.com/crypt0cloud/crypt0cloud-sdk-go"
 )
 
