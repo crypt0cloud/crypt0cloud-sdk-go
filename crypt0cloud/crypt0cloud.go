@@ -51,12 +51,15 @@ func (cc Crypt0Cloud) CreateKey(payload string) (*model.Transaction, ed25519.Pub
 
 func (cc Crypt0Cloud) CreateGroup(payload string, kinds []string, appkey_public ed25519.PublicKey, appkey_private ed25519.PrivateKey, callback string) (*model.Transaction, error) {
 	nid := cc.Client.Node_GetCredentials()
+	block := cc.Client.Block_getLasts()[0]
 
 	t := &model.Transaction{
 		AppID:       crypto.Base64_encode(appkey_public),
 		Payload:     payload,
 		SignKind:    "__NEWCONTRACT",
 		SignerKinds: kinds,
+
+		BlockSign: block.Sign,
 
 		FromNode: *nid,
 		ToNode:   *nid,
